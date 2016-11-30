@@ -8,4 +8,9 @@ defmodule ElastaBot.Slack do
         end
         {:ok, state}
     end
+
+    # Catch all message handler so we don't crash
+    def handle_message(_message, _slack, state) do
+        {:ok, state}
+    end
 end

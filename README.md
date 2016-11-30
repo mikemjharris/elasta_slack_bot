@@ -2,6 +2,7 @@
 
 
 ## Installation
+The project requires elixir - checkout [their docs](http://elixir-lang.org/getting-started/introduction.html) for installation instructions.
 
 ```
  mix deps.get

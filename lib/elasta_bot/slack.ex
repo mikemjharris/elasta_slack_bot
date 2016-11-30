@@ -3,6 +3,7 @@ defmodule ElastaBot.Slack do
     
     def handle_event(message = %{type: "message"}, slack, state) do
         if Regex.run ~r/<@#{slack.me.id}>:?\sping/, message.text do
+          IO.puts "here"
           send_message("<@#{message.user}> pong",
             message.channel, slack)
         end

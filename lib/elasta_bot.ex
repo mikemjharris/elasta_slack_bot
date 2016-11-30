@@ -9,7 +9,7 @@ defmodule ElastaBot do
     # Define workers and child supervisors to be supervised
     children = [
       # Starts a worker by calling: ElastaBot.Worker.start_link(arg1, arg2, arg3)
-      worker(ElastaBot.Slack, [slack_token, :whatever]),
+      worker(Slack.Bot, [ElastaBot.Slack,[], slack_token]),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

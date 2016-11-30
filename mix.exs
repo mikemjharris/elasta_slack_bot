@@ -28,8 +28,6 @@ defmodule ElastaBot.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:slack, "~> 0.6.0"},
-    {:websocket_client, 
-         git: "https://github.com/jeremyong/websocket_client"}]
+    [{:slack, "~> 0.9.0"}]
   end
 end

@@ -1,24 +1,27 @@
 # ElastaBot
 
-**TODO: Add description**
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+```
+ mix deps.get
+```
 
-  1. Add `elasta_bot` to your list of dependencies in `mix.exs`:
+Create an environment variable `export SLACK_TOKEN=xoxo-SLACK-API-TOKEN`. For more info checkout the [slack docs](https://api.slack.com/bot-users).
 
-    ```elixir
-    def deps do
-      [{:elasta_bot, "~> 0.1.0"}]
-    end
-    ```
+`.env` file is part of the .gitignore file.  Would suggest addint the export to that and sourceing that file in your current terminal session.
 
-  2. Ensure `elasta_bot` is started before your application:
 
-    ```elixir
-    def application do
-      [applications: [:elasta_bot]]
-    end
-    ```
+To run slack bot:
+
+```
+mix run --no-halt
+```
+
+## Useage
+
+So far the elastabot responds to the word 'ping' with the word 'pong'.  The plan is that it will hook into your elastasearch and run a query for you and return the results.
+
+The need for this is that we use [yelp's elastalert](https://github.com/Yelp/elastalert) to send alerts to slack with a kibana link.  However viewing the errors requires access to the vpn - either a number of extra steps to connect with or not easy to do when on mobile.  The bot will give you the back what n errors are allowing you to work out if you need to get back online and sort things out or if it is a non essential warning.
+
 

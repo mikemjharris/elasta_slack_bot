@@ -30,7 +30,8 @@ defmodule ElastaBot.Mixfile do
   defp deps do
     [
         {:slack, "~> 0.9.0"},
-        {:httpotion, "~> 3.0.2"}
+        {:httpotion, "~> 3.0.2"},
+        {:poison, "~> 3.0"}
     ]
   end
 end

@@ -14,7 +14,7 @@ defmodule ElastaBot.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :slack],
+    [applications: [:logger, :slack, :httpotion],
      mod: {ElastaBot, []}]
   end
 
@@ -28,6 +28,9 @@ defmodule ElastaBot.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:slack, "~> 0.9.0"}]
+    [
+        {:slack, "~> 0.9.0"},
+        {:httpotion, "~> 3.0.2"}
+    ]
   end
 end

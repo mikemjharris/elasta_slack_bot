@@ -31,3 +31,6 @@ use Mix.Config
 
 config :elasta_bot, ElastaBot.Slack,
   token: System.get_env("SLACK_TOKEN")
+
+config :elasta_bot, ElastaBot.Test,
+  elastic_search_url: System.get_env("ELASTIC_SEARCH_URL")

@@ -1,16 +1,20 @@
 defmodule ElastaBot.Query do
     @request File.read!("./data/request.json") 
     def query_es() do
-        results = get_results_from_es()
-        results = Poison.Parser.parse!(results.body) 
-        alert = Enum.at(results["hits"]["hits"],1)["_source"]["message"] <> Enum.at(results["hits"]["hits"],2)["_source"]["message"] 
+        result = get_results_from_es()
+         |> (fn(results) -> Poison.Parser.parse!(results.body)end).()
+         |> (fn(r) -> r["hits"]["hits"] end).()
+
+        #TODO - this should be able to be piped to...
+        Enum.reduce result, "",  fn result, message ->
+          message <> "\n" <> result["_source"]["message"]
+        end
     end
 
     def get_results_from_es() do
         elastic_search_url = Application.get_env(:elasta_bot, ElastaBot.Query)[:elastic_search_url]
-        
-        create_body_for_es_post_request()
-        |> (fn(body) -> HTTPotion.post elastic_search_url, [body: body,  headers: ["Content-Type": "application/json"]] end).()
+        body = create_body_for_es_post_request()
+        HTTPotion.post elastic_search_url, [body: body,  headers: ["Content-Type": "application/json"]]
     end
 
     def convert_to_json(map_to_convert) do
@@ -18,12 +22,15 @@ defmodule ElastaBot.Query do
     end
 
     def create_body_for_es_post_request() do
-        Poison.decode!(@request)
+        end_time =  :os.system_time(:seconds)*1000
+        start_time = end_time - 24 * 60 * 60 * 1000
+        query = "source: ecom-cms AND environment: production AND (_forwarder_host: magnoliapublic2 OR _forwarder_host: magnoliapublic1) "
+        create_request(start_time, end_time, query, 10) 
         |> convert_to_json()
         |> to_string
     end
 
-    def creat_request(start_date, end_date, query, nos_results) do
+    def create_request(start_date, end_date, query, nos_results) do
       %{ query: %{
         filtered: %{
           query: %{
@@ -63,7 +70,7 @@ defmodule ElastaBot.Query do
           "*",
           "_source"
         ],
-        scripts_fields: {},
+        script_fields: %{},
         fielddata_fields: [
           "@timestamp"
         ]

@@ -23,4 +23,51 @@ defmodule ElastaBot.Query do
         |> to_string
     end
 
+    def creat_request(start_date, end_date, query, nos_results) do
+      %{ query: %{
+        filtered: %{
+          query: %{
+            query_string: %{
+              analyze_wildcard: true,
+              query: query
+            }
+          },
+          filter: %{
+            bool: %{
+              must: [
+                %{
+                  range: %{
+                    "@timestamp": %{
+                      gte: start_date,
+                      lte: end_date,
+                      format: "epoch_millis"
+                    }
+                  }
+                }
+              ],
+              must_not: []
+             }
+           }
+          }
+        },
+        size: nos_results,
+        sort: [
+          %{
+            "@timestamp": %{
+              order: "desc",
+              unmapped_type: "boolean"
+            }
+          }
+        ],
+        fields: [
+          "*",
+          "_source"
+        ],
+        scripts_fields: {},
+        fielddata_fields: [
+          "@timestamp"
+        ]
+      }
+    end
+
 end

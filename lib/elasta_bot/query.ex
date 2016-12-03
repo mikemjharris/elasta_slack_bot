@@ -1,4 +1,5 @@
 defmodule ElastaBot.Query do
+    @request File.read!("./data/request.json") 
     def query_es() do
         results = get_results_from_es()
         results = Poison.Parser.parse!(results.body) 
@@ -17,8 +18,7 @@ defmodule ElastaBot.Query do
     end
 
     def create_body_for_es_post_request() do
-        File.read!("./data/request.json") 
-        |> Poison.decode!()
+        Poison.decode!(@request)
         |> convert_to_json()
         |> to_string
     end

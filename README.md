@@ -26,8 +26,11 @@ To run: ` docker run --env-file ./.env-docker elasta_bot`
 
 ## Useage
 
-So far the elastabot responds to the word 'ping' with the word 'pong'.  The plan is that it will hook into your elastasearch and run a query for you and return the results.
-
 The need for this is that we use [yelp's elastalert](https://github.com/Yelp/elastalert) to send alerts to slack with a kibana link.  However viewing the errors requires access to the vpn - either a number of extra steps to connect with or not easy to do when on mobile.  The bot will give you the back what n errors are allowing you to work out if you need to get back online and sort things out or if it is a non essential warning.
 
+The bot responds to messages of the following formats:
+- `@elasta_bot last N alerts`  (where N in an integer) you will get back last N alerts over the last 2 days)
 
+
+## TODOs
+Add more tests and more elastabot functionality

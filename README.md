@@ -19,6 +19,11 @@ To run slack bot:
 mix run --no-halt
 ```
 
+### To run with docker
+There is also a dockerfile - run `docker build . -t elasta_bot`
+Follow instructions in `.env-example` file to create docker env file.
+To run: ` docker run --env-file ./.env-docker elasta_bot`
+
 ## Useage
 
 So far the elastabot responds to the word 'ping' with the word 'pong'.  The plan is that it will hook into your elastasearch and run a query for you and return the results.

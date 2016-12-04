@@ -1,7 +1,7 @@
 defmodule ElastaBot.Query do
     @request File.read!("./data/request.json") 
     def query_es() do
-        result = get_results_from_es()
+         get_results_from_es()
          |> (fn(results) -> Poison.Parser.parse!(results.body)end).()
          |> (fn(r) -> r["hits"]["hits"] end).()
          |> Enum.reduce("", &(&2 <> "\n" <> &1["_source"]["message"]))

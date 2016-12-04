@@ -4,11 +4,7 @@ defmodule ElastaBot.Query do
         result = get_results_from_es()
          |> (fn(results) -> Poison.Parser.parse!(results.body)end).()
          |> (fn(r) -> r["hits"]["hits"] end).()
-
-        #TODO - this should be able to be piped to...
-        Enum.reduce result, "",  fn result, message ->
-          message <> "\n" <> result["_source"]["message"]
-        end
+         |> Enum.reduce("", &(&2 <> "\n" <> &1["_source"]["message"]))
     end
 
     def get_results_from_es() do

@@ -6,6 +6,7 @@ ADD . /var/www/
 
 WORKDIR /var/www/
 
+RUN mix local.rebar
 RUN mix local.hex --force
 RUN mix deps.get
 

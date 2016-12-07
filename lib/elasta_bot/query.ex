@@ -26,6 +26,21 @@ defmodule ElastaBot.Query do
         |> to_string
     end
 
+    def queries() do
+      # These are example queries run at work - TODO move these into a config file to add
+      %{ 
+        a: "source: ecom-cms AND environment: production AND (_forwarder_host: magnoliapublic2 OR _forwarder_host: magnoliapublic1)",
+        b: "source: ecom-cms AND environment: staging AND (_forwarder_host: magnoliapublic2 OR _forwarder_host: magnoliapublic1)"
+      }
+    end
+
+    def list_queries() do 
+      queries()
+      |> Enum.map(fn{query_nos, query} -> "#{query_nos}: #{query}" end)
+      |> Enum.reduce("List of queries", &(&2 <> "\n" <> &1))
+    end
+
+
     def create_request(start_date, end_date, query, nos_results) do
       %{ query: %{
         filtered: %{

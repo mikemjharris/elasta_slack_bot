@@ -11,6 +11,10 @@ defmodule ElastaBot.Slack do
           |> case do
             [_, "last", nos_queries , "alerts"] ->
               ElastaBot.Query.query_es(String.to_integer(nos_queries))
+            [_, "list", "queries"] ->
+              ElastaBot.Query.list_queries()
+            [_, "run", "query", query_id] ->
+              ElastaBot.Query.run_query(query_id)
             _ ->
               "didn't match"
             end

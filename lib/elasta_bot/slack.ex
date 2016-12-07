@@ -14,7 +14,9 @@ defmodule ElastaBot.Slack do
             [_, "list", "queries"] ->
               ElastaBot.Query.list_queries()
             [_, "run", "query", query_id] ->
-              ElastaBot.Query.run_query(query_id)
+              ElastaBot.Query.query_es(10, query_id)
+            [_, "run", "query", query_id, nos_queries] ->
+              ElastaBot.Query.query_es(nos_queries, query_id)
             _ ->
               "didn't match"
             end

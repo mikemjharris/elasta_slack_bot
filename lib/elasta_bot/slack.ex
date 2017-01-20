@@ -17,6 +17,8 @@ defmodule ElastaBot.Slack do
               ElastaBot.Query.query_es(10, query_id)
             [_, "run", "query", query_id, nos_queries] ->
               ElastaBot.Query.query_es(nos_queries, query_id)
+            ["thanks", _] ->
+              thank_you_message()
             _ ->
               "didn't match"
             end
@@ -24,6 +26,10 @@ defmodule ElastaBot.Slack do
           send_message("<@#{message.user}> " <> return_message, message.channel, slack)
         end
         {:ok, state}
+    end
+
+    def thank_you_message do
+      "No problem"
     end
 
     # Catch all message handler so we don't crash

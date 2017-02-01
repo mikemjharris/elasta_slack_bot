@@ -1,8 +1,11 @@
 defmodule ElastaBot.Query do
     @request File.read!("./data/request.json") 
     def query_es(nos_queries \\ 10, query \\ "a") do
-         query_string = get_query(query)
+         get_query(query)
+         |> run_string_query(nos_queries)
+    end
 
+    def run_string_query(query_string, nos_queries \\ 10) do
          get_results_from_es(nos_queries, query_string)
          |> (fn(results) -> Poison.Parser.parse!(results.body)end).()
          |> (fn(r) -> r["hits"]["hits"] end).()

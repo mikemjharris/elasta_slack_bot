@@ -9,10 +9,10 @@ defmodule ElastaBot.Slack do
           return_message = "a" 
         
 
-          return_message = Regex.run(~r/.+\squery\s(?<querytext>.+)/, message.text) 
+          return_message = Regex.run(~r/.+\squery\s([0-9]+)\s(?<querytext>.+)/, message.text) 
           |> case do
-            [_, query] -> 
-              ElastaBot.Query.run_string_query(query)
+            [_, nos, query] -> 
+              ElastaBot.Query.run_string_query(query, nos)
             nil ->
                message.text
               |> String.split()

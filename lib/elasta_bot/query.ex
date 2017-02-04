@@ -1,3 +1,5 @@
+require IEx
+
 defmodule ElastaBot.Query do
     @request File.read!("./data/request.json") 
     def query_es(nos_queries \\ 10, query \\ "a") do
@@ -9,7 +11,7 @@ defmodule ElastaBot.Query do
          get_results_from_es(nos_queries, query_string)
          |> (fn(results) -> Poison.Parser.parse!(results.body)end).()
          |> (fn(r) -> r["hits"]["hits"] end).()
-         |> Enum.reduce("", &(&2 <> "\n" <> &1["_source"]["message"]))
+         |> Enum.reduce("", &(&2 <> "\n" <> "*" <> String.slice(&1["_source"]["@timestamp"],11,8)<> "* " <> &1["_source"]["message"]))
     end
 
     def get_results_from_es(nos_queries, query_string) do

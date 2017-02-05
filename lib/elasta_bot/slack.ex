@@ -32,7 +32,7 @@ defmodule ElastaBot.Slack do
                 end
           end
 
-          send_message("<@#{message.user}> " <> return_message, message.channel, slack)
+          send_message("<@#{message.user}> " <> return_message, message.channel, slack, message.ts)
         end
         {:ok, state}
     end

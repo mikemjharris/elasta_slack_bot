@@ -29,7 +29,7 @@ defmodule ElastaBot.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-        {:slack, "~> 0.9.3"},
+        {:slack, github: "mikemjharris/Elixir-Slack"},
         {:httpotion, "~> 3.0.2"},
         {:poison, "~> 3.0"}
     ]

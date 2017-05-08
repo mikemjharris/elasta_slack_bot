@@ -3,7 +3,7 @@ require IEx
 defmodule ElastaBot.Slack do 
     use Slack
     
-    def handle_event(message = %{type: "message"}, slack, state) do
+    def handle_event(message = %{type: "message", text: _}, slack, state) do
         # Only respond to messages to me!
         if Regex.run ~r/<@#{slack.me.id}>:?/, message.text do
           return_message = "a" 
